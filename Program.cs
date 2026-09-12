@@ -1,55 +1,15 @@
-﻿using MyApp;
+﻿using myApp.Semana3.Orders;
 
-Account account1 = new Account
-{
-    Id = 1,
-    AccountNumber = "456-211",
-    AccountType = 1
-};
+Console.WriteLine("Bienvenido al Sistema");
 
-Account account2 = new Account
-{
-    Id = 2,
-    AccountNumber = "520-000",
-    AccountType = 2
-};
+Product keyboard = new Product(1, "Keyboard", 80);
+Product mouse = new Product(1, "Mouse", 40);
 
-AccountRepository repository = new AccountRepository();
-repository.AddItem(account1);
-var list = repository.GetList();
-repository.AddItem(account2);
+Order order = new Order(1);
 
-var accountById = repository.GetById(1);
+order.AddItem(keyboard, 2);
+order.AddItem(mouse, 1);
 
-ValidateId(accountById);
+decimal total = order.CalculateTotal();
 
-repository.Remove(account1);
-var accountById1 = repository.GetById(1);
-
-ValidateId(accountById1);
-
-
-static void ValidateId(Account accountById)
-{
-    if (accountById != null)
-    {
-        Console.WriteLine($"{accountById.AccountNumber} - {accountById.AccountType}");
-    }
-    else
-    {
-        Console.WriteLine("La cuenta no existe");
-    }
-}
-
-
-// myList.Add(new Account { AccountNumber = "456-211", AccountType = 1 });
-// myList.Add(new Account { AccountNumber = "520-000", AccountType = 2 });
-
-// foreach (var item in list)
-// {
-//     Console.WriteLine($"{item.AccountNumber} - {item.AccountType}");
-// }
-
-// Console.WriteLine(balance2);
-
-
+Console.WriteLine($"El total de la orden es: {total}");
