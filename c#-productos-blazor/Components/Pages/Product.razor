@@ -1,0 +1,59 @@
+﻿@page "/product"
+@attribute [StreamRendering]
+
+<PageTitle>Products</PageTitle>
+
+<h1>Products</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (productList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in productList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Products>? productList = new List<Products>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(5000);
+
+        productList!.Add(new Products { Id = 1, Name = "Laptop", Price = 4000000m, Quantity = 5 });       
+        productList.Add(new Products { Id = 2, Name = "Mouse", Price = 30000m, Quantity = 8 });       
+        productList.Add(new Products { Id = 3, Name = "Keyboard", Price = 35000m, Quantity = 10 });       
+    }
+
+    public class Products
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+    }
+}
